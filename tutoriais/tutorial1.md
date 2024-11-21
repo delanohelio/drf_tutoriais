@@ -43,19 +43,36 @@ Quando o backend responde para o frontend, ele usa uma "língua universal" chama
 
 ## **4. Passo a Passo: Criando uma API com Django e DRF**
 
+0. Vamos configurar uma ambiente e aplicação Django
+
+_Usando terminal_
+   ```bash
+   # Create the project directory
+    mkdir tutorial
+    cd tutorial
+    
+    # Create a virtual environment to isolate our package dependencies locally
+    python3 -m venv venv
+    source venv/bin/activate  # On Windows use `env\Scripts\activate`
+    
+    # Install Django and Django REST framework into the virtual environment
+    pip install djangorestframework
+    django-admin startproject bookstore
+    cd bookstore
+   ```
+
+_Usando PyCharm_
+![alt Pycharm criando projeto Django](assets/pycharm_django.png)
+
+
 Vamos criar juntos a aplicação `bookapi`. Siga os passos abaixo.
 
 ### **4.1 Configurando o Projeto Django**
-1. No terminal, crie um novo projeto Django:
-   ```bash
-   django-admin startproject bookstore
-   cd bookstore
-   ```
-2. Crie um app chamado `bookapi`:
+1. Crie um app chamado `bookapi`:
    ```bash
    python manage.py startapp bookapi
    ```
-3. Registre o app no arquivo `settings.py`:
+2Registre o app no arquivo `settings.py`:
    ```python
    INSTALLED_APPS = [
        ...
@@ -167,4 +184,4 @@ urlpatterns = [
 
 ## **5. Desafio para os Alunos**
 
-- Crie uma view e serializer para editar e deletar livros (usando métodos **PUT** e **DELETE**).
+- Crie uma view e serializer para ver um único objeto editar e deletar livros (usando métodos **PUT** e **DELETE**).
