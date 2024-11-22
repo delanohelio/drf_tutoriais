@@ -67,6 +67,11 @@ Agora você pode abrir esse projeto em qualquer IDE.
 0.2. _Usando IntelliJ ou PyCharm_
 ![alt Pycharm criando projeto Django](assets/pycharm_django.png)
 
+Depois de criar o projeto com IntelliJ ainda é necessário instalar o django rest framework. Abra o terminal dentro do projeto do IntelliJ e execute o seguinte:
+```bash
+pip install djangorestframework
+```
+
 **Para testar se o Django está instalado e pode rodar corretamente, execute:**
 ```bash
    python3 manage.py runserver
