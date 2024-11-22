@@ -45,25 +45,33 @@ Quando o backend responde para o frontend, ele usa uma "língua universal" chama
 
 0. Vamos configurar uma ambiente e aplicação Django
 
-_Usando terminal_
+0.1. _Usando terminal do Linux ou o powershell do Windows_
    ```bash
    # Create the project directory
-    mkdir tutorial
-    cd tutorial
+    mkdir bookstore
+    cd bookstore
     
     # Create a virtual environment to isolate our package dependencies locally
     python3 -m venv venv
     source venv/bin/activate  # On Windows use `env\Scripts\activate`
     
+    cd ..
+    
     # Install Django and Django REST framework into the virtual environment
     pip install djangorestframework
-    django-admin startproject bookstore
+    django-admin startproject bookstore bookstore/
     cd bookstore
    ```
+Agora você pode abrir esse projeto em qualquer IDE.
 
-_Usando PyCharm_
+0.2. _Usando IntelliJ ou PyCharm_
 ![alt Pycharm criando projeto Django](assets/pycharm_django.png)
 
+**Para testar se o Django está instalado e pode rodar corretamente, execute:**
+```bash
+   python3 manage.py runserver
+   ```
+Acesse o link que ele exibe: http://127.0.0.1:8000/
 
 Vamos criar juntos a aplicação `bookapi`. Siga os passos abaixo.
 
@@ -72,7 +80,7 @@ Vamos criar juntos a aplicação `bookapi`. Siga os passos abaixo.
    ```bash
    python manage.py startapp bookapi
    ```
-2Registre o app no arquivo `settings.py`:
+2. Registre o app no arquivo `settings.py`:
    ```python
    INSTALLED_APPS = [
        ...
