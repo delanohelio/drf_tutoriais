@@ -136,6 +136,7 @@ class BookSerializer(serializers.ModelSerializer):
 
 ### **4.4 Criando a View**
 
+#### **4.4.1 View para Lista e Criação**
 No arquivo `views.py`, crie uma view para listar e criar livros:
 ```python
 from rest_framework.decorators import api_view
@@ -158,19 +159,53 @@ def book_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 ```
 
+#### **4.4.2 View para Detalhes, Edição e Exclusão**
+
+Agora, vamos criar uma view para acessar detalhes de um livro, atualizar dados e excluí-lo.
+
+No arquivo `views.py`, adicione o seguinte código:
+
+```python
+from django.shortcuts import get_object_or_404
+
+@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
+def book_detail(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+
+    if request.method == 'GET':
+        serializer = BookSerializer(book)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = BookSerializer(book, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'PATCH':
+        serializer = BookSerializer(book, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        book.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+```
+
 ---
 
 ### **4.5 Criando as URLs**
 
-No arquivo `urls.py` do projeto, registre a URL da API:
-```python
-from django.contrib import admin
-from django.urls import path
-from bookapi import views
+No arquivo `urls.py`, adicione uma rota para acessar os métodos de manipulação de livros individuais:
 
+```python
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/books/', views.book_list),
+    path('api/books/', views.book_list, name='book-list'),
+    path('api/books/<int:pk>/', views.book_detail, name='book-detail'),
 ]
 ```
 
@@ -178,13 +213,14 @@ urlpatterns = [
 
 ### **4.6 Testando a API**
 
-1. Rode o servidor:
-   ```bash
-   python manage.py runserver
-   ```
-2. Acesse a URL:
-    - Para listar os livros: `http://127.0.0.1:8000/api/books/` (use **GET**).
-    - Para adicionar um livro: `http://127.0.0.1:8000/api/books/` (use **POST** com um JSON como este):
+Com o servidor rodando (`python manage.py runserver`), teste as seguintes operações:
+
+1. **Listar todos os livros (GET):**
+    - URL: `http://127.0.0.1:8000/api/books/`
+
+2. **Criar um livro (POST):**
+    - URL: `http://127.0.0.1:8000/api/books/`
+    - Corpo (JSON):
       ```json
       {
         "title": "O Senhor dos Anéis",
@@ -193,8 +229,55 @@ urlpatterns = [
       }
       ```
 
+3. **Obter detalhes de um livro específico (GET):**
+    - URL: `http://127.0.0.1:8000/api/books/1/`
+
+4. **Atualizar todos os dados de um livro (PUT):**
+    - URL: `http://127.0.0.1:8000/api/books/1/`
+    - Corpo (JSON):
+      ```json
+      {
+        "title": "Harry Potter",
+        "author": "J.K. Rowling",
+        "price": 39.90
+      }
+      ```
+
+5. **Atualizar parte dos dados de um livro (PATCH):**
+    - URL: `http://127.0.0.1:8000/api/books/1/`
+    - Corpo (JSON):
+      ```json
+      {
+        "price": 29.90
+      }
+      ```
+
+6. **Excluir um livro (DELETE):**
+    - URL: `http://127.0.0.1:8000/api/books/1/`
+
 ---
 
-## **5. Desafio para os Alunos**
+### **5. Validações Extras no Serializer**
 
-- Crie uma view e serializer para ver um único objeto editar e deletar livros (usando métodos **PUT** e **DELETE**).
+Adicione validações no arquivo `serializers.py` para evitar problemas, como preços negativos:
+
+```python
+class BookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = '__all__'
+
+    def validate_price(self, value):
+        if value < 0:
+            raise serializers.ValidationError("O preço não pode ser negativo.")
+        return value
+```
+
+---
+
+### **6. Desafios para os Alunos**
+
+- Adicione novas validações no serializer, como verificar se o título é único.
+- Crie uma nova view para buscar livros pelo autor (exemplo: `/api/books/?author=J.R.R.Tolkien`).
+
+---
