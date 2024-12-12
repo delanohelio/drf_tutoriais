@@ -53,13 +53,18 @@ Quando o backend responde para o frontend, ele usa uma "língua universal" chama
     
     # Create a virtual environment to isolate our package dependencies locally
     python3 -m venv venv
-    source venv/bin/activate  # On Windows use `env\Scripts\activate`
+
+     #Ativar o virtual enviroment:
+    venv/Scripts/activate #No Windows
+
+    source venv/bin/activate  #No Linux
+
     
     cd ..
     
     # Install Django and Django REST framework into the virtual environment
     pip install djangorestframework
-    django-admin startproject bookstore bookstore/
+    django-admin startproject bookstore
     cd bookstore
    ```
 Agora você pode abrir esse projeto em qualquer IDE.
@@ -120,6 +125,7 @@ Vamos criar juntos a aplicação `bookapi`. Siga os passos abaixo.
 ---
 
 ### **4.3 Criando o Serializer**
+Crie um arquivo python com o nome serializers, que deverá ficar como 'serializers.py'
 
 No arquivo `serializers.py`, crie um serializer para converter o modelo `Book` para JSON:
 ```python
@@ -202,6 +208,8 @@ def book_detail(request, pk):
 No arquivo `urls.py`, adicione uma rota para acessar os métodos de manipulação de livros individuais:
 
 ```python
+from bookapi import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/books/', views.book_list, name='book-list'),
