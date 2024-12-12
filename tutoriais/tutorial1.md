@@ -53,7 +53,9 @@ Quando o backend responde para o frontend, ele usa uma "língua universal" chama
     
     # Create a virtual environment to isolate our package dependencies locally
     python3 -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    source venv/bin/activate  #No Linux
+
+    venv/Scripts/activate #No Windows
     
     cd ..
     
