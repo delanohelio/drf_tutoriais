@@ -6,26 +6,26 @@
 
 ### Funcionalidades da API
 
-1. **Gerenciamento de Clientes**:
-    - **Endpoint para listar clientes**.
-    - **Endpoint para recuperar cliente específico**.
-    - **Endpoint para cadastrar clientes**.
-    - **Endpoint para excluir clientes**.
+1. **Gerenciamento de Clientes**: (2,5)
+    - **Endpoint para listar clientes**. (0,5)
+    - **Endpoint para recuperar cliente específico**. (0,5)
+    - **Endpoint para cadastrar clientes**. (1,0)
+    - **Endpoint para excluir clientes**. (0,5)
 
-2. **Gerenciamento de Produtos**:
-    - **Endpoint para listar produtos**.
-    - **Endpoint para recuperar produto específico**.
-    - **Endpoint para cadastrar produtos**.
-    - **Endpoint para excluir produtos**.
+2. **Gerenciamento de Produtos**: (2,5)
+    - **Endpoint para listar produtos**. (0,5)
+    - **Endpoint para recuperar produto específico**. (0,5)
+    - **Endpoint para cadastrar produtos**. (1,0)
+    - **Endpoint para excluir produtos**. (0,5)
 
-3. **Gerenciamento de Pedidos**:
-    - **Endpoint para criar pedidos**, associando um cliente e uma lista de produtos.
-    - **Endpoint para listar pedidos**, incluindo informações do cliente, produtos no pedido e o tipo de entrega (entrega ou retirada).
-    - **Endpoint para recuperar pedido específico**, incluindo informações do cliente, produtos no pedido e o tipo de entrega (entrega ou retirada).
+3. **Gerenciamento de Pedidos**: (5,0)
+    - **Endpoint para criar pedidos**, associando um cliente e uma lista de produtos. (1,5)
+    - **Endpoint para listar pedidos**, incluindo informações do cliente, produtos no pedido e o tipo de entrega (entrega ou retirada). (1,5)
+    - **Endpoint para recuperar pedido específico**, incluindo informações do cliente, produtos no pedido e o tipo de entrega (entrega ou retirada). (2,0)
 
 4. **Funcionalidades Extras**:
-    - Cada pedido deve calcular automaticamente o total a ser pago com base nos preços dos produtos.
-    - Um endpoint para consultar o **histórico de pedidos de um cliente específico**.
+    - Cada pedido deve calcular automaticamente o total a ser pago com base nos preços dos produtos. (1,0)
+    - Um endpoint para consultar o **histórico de pedidos de um cliente específico**. (1,0)
 
 ---
 
@@ -35,7 +35,7 @@
     - `nome`: CharField
     - `cpf`: CharField
     - `endereco`: TextField
-    - `historico_pedidos`: Relação com o modelo de pedidos
+    - `historico_pedidos`: Relação com o modelo de pedidos (extra)
 
 - **Produto**:
     - `nome`: CharField
@@ -45,7 +45,7 @@
     - `cliente`: ForeignKey (Cliente)
     - `produtos`: ManyToManyField (Produto)
     - `tipo_entrega`: CharField (opções: "entrega", "retirada")
-    - `total`: DecimalField (calculado automaticamente com base nos produtos)
+    - `total`: DecimalField (calculado automaticamente com base nos produtos) (extra)
 
 ---
 
