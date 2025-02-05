@@ -45,27 +45,21 @@ Quando o backend responde para o frontend, ele usa uma "língua universal" chama
 
 0. Vamos configurar uma ambiente e aplicação Django
 
-0.1. _Usando terminal do Linux ou o powershell do Windows_
+0.1. _Usando terminal do Linux, powershell ou command prompt do Windows_
    ```bash
    # Create the project directory
-    mkdir bookstore
-    cd bookstore
+    mkdir bookstore-project
+    cd bookstore-project
     
     # Create a virtual environment to isolate our package dependencies locally
-    python3 -m venv venv
+    python3 -m venv venv # No Windows use python -m venv venv
 
      #Ativar o virtual enviroment:
-    venv/Scripts/activate #No Windows
-
-    source venv/bin/activate  #No Linux
-
-    
-    cd ..
+    source venv/bin/activate  #No Windows use venv/Scripts/activate
     
     # Install Django and Django REST framework into the virtual environment
     pip install djangorestframework
     django-admin startproject bookstore
-    cd bookstore
    ```
 Agora você pode abrir esse projeto em qualquer IDE.
 
