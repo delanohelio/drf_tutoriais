@@ -90,3 +90,48 @@
 
 5. **Rotas**:
     - Configurar URLs para os endpoints no arquivo `urls.py` do app `api_lanches`.
+
+---
+
+### Validação e Avaliação da API
+
+Vamos usar o script abaixo para testar a sua API e verificar o resultado do projeto: [avaliacao.py](avaliacao.py)
+
+Ao rodar esse script com o seu projeto executando um exemplo de resultado seria:
+
+```yaml
+=== Resultados dos Testes ===
+
+
+Gerenciamento de Clientes:
+-------------------------
+Cadastrar cliente: ✅ PASSOU (+1.0 pontos)
+Listar clientes: ✅ PASSOU (+0.5 pontos)
+Recuperar cliente específico: ✅ PASSOU (+0.5 pontos)
+
+Gerenciamento de Produtos:
+-------------------------
+Cadastrar produto: ✅ PASSOU (+1.0 pontos)
+Listar produtos: ✅ PASSOU (+0.5 pontos)
+Recuperar produto específico: ✅ PASSOU (+0.5 pontos)
+
+Gerenciamento de Pedidos:
+-------------------------
+Criar pedido: ✅ PASSOU (+1.5 pontos)
+Listar pedidos: ✅ PASSOU (+1.5 pontos)
+Recuperar pedido específico: ✅ PASSOU (+2.0 pontos)
+
+Funcionalidades Extras:
+-------------------------
+Calcular total do pedido automaticamente: ✅ PASSOU (+1.0 pontos)
+Consultar histórico de pedidos de um cliente: ✅ PASSOU (+1.0 pontos)
+
+Exclusão de Dados:
+-------------------------
+Excluir pedido: ✅ PASSOU (+0.5 pontos)
+Excluir cliente: ✅ PASSOU (+0.5 pontos)
+Excluir produto: ✅ PASSOU (+0.5 pontos)
+
+=== Nota Final ===
+Pontuação obtida: 10.0/10.0
+```
