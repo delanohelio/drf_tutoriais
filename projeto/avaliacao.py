@@ -12,26 +12,26 @@ testes = {
     "Gerenciamento de Clientes": [
         ("Cadastrar cliente", "POST", "/clientes/", 1.0, {"nome": "João", "cpf": "12345678900", "endereco": "Rua A, 123"}),
         ("Listar clientes", "GET", "/clientes/", 0.5),
-        ("Recuperar cliente específico", "GET", None, 0.5),  # URL será ajustada dinamicamente
+        ("Recuperar cliente específico", "GET", None, 0.5),
     ],
     "Gerenciamento de Produtos": [
         ("Cadastrar produto", "POST", "/produtos/", 1.0, {"nome": "Hamburguer", "preco": 15.50}),
         ("Listar produtos", "GET", "/produtos/", 0.5),
-        ("Recuperar produto específico", "GET", None, 0.5),  # URL será ajustada dinamicamente
+        ("Recuperar produto específico", "GET", None, 0.5),
     ],
     "Gerenciamento de Pedidos": [
-        ("Criar pedido", "POST", "/pedidos/", 1.5, None),  # Data será ajustada dinamicamente
+        ("Criar pedido", "POST", "/pedidos/", 1.5, None),
         ("Listar pedidos", "GET", "/pedidos/", 1.5),
-        ("Recuperar pedido específico", "GET", None, 2.0),  # URL será ajustada dinamicamente
+        ("Recuperar pedido específico", "GET", None, 2.0),
     ],
     "Funcionalidades Extras": [
-        ("Calcular total do pedido automaticamente", "GET", None, 1.0),  # URL será ajustada dinamicamente
-        ("Consultar histórico de pedidos de um cliente", "GET", None, 1.0),  # URL será ajustada dinamicamente
+        ("Calcular total do pedido automaticamente", "GET", None, 1.0),
+        ("Consultar histórico de pedidos de um cliente", "GET", None, 1.0),
     ],
     "Exclusão de Dados": [
-        ("Excluir pedido", "DELETE", None, 0.5),  # URL será ajustada dinamicamente
-        ("Excluir cliente", "DELETE", None, 0.5),  # URL será ajustada dinamicamente
-        ("Excluir produto", "DELETE", None, 0.5),  # URL será ajustada dinamicamente
+        ("Excluir pedido", "DELETE", None, 0.5),
+        ("Excluir cliente", "DELETE", None, 0.5),
+        ("Excluir produto", "DELETE", None, 0.5),
     ],
 }
 
@@ -80,7 +80,7 @@ def testar_api():
                     continue
             elif nome == "Criar pedido":
                 if cliente_id and produto_id:
-                    data = {"cliente_id": cliente_id, "produtos": [produto_id], "tipo_entrega": "entrega"}
+                    data = [{"cliente_id": cliente_id, "produtos": [produto_id], "tipo_entrega": "entrega"}]
                 else:
                     print(f"{nome}: ❌ NÃO TESTADO (Cliente ou Produto ausente)\n")
                     continue
@@ -115,17 +115,20 @@ def testar_api():
                     print(f"{nome}: ❌ NÃO TESTADO (Produto não criado)\n")
                     continue
 
-            passou, resposta = testar_endpoint(metodo, url, nota, data[0] if data else None)
+            # Correção para evitar erro de índice
+            dados_para_envio = data[0] if data and len(data) > 0 and isinstance(data[0], dict) else None
+
+            passou, resposta = testar_endpoint(metodo, url, nota, dados_para_envio)
             status = "✅ PASSOU" if passou else "❌ FALHOU"
             if passou:
                 total_pontos += nota
 
                 # Captura IDs para dependências
-                if nome == "Cadastrar cliente" and resposta:
+                if nome == "Cadastrar cliente" and resposta and isinstance(resposta, dict):
                     cliente_id = resposta.get("id")
-                elif nome == "Cadastrar produto" and resposta:
+                elif nome == "Cadastrar produto" and resposta and isinstance(resposta, dict):
                     produto_id = resposta.get("id")
-                elif nome == "Criar pedido" and resposta:
+                elif nome == "Criar pedido" and resposta and isinstance(resposta, dict):
                     pedido_id = resposta.get("id")
 
             print(f"{nome}: {status} (+{nota} pontos)")
