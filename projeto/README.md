@@ -96,6 +96,12 @@
 ### Validação e Avaliação da API
 
 Vamos usar o script abaixo para testar a sua API e verificar o resultado do projeto: [avaliacao.py](avaliacao.py)
+Para executar essa avaliação você deve:
+
+- Remover o arquivo de banco de dados db.sqlite3
+- Executar o comando python manage.py migrate para criar o banco de dados novamente
+- Executar a sua API com o comando python manage.py runserver
+- Rodar a avaliação com python avaliacao.py (antes de executar a primeira vez é necessário instalar a lib requests executando pip install requests)
 
 Ao rodar esse script com o seu projeto executando um exemplo de resultado seria:
 
